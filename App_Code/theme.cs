@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for theme
@@ -73,5 +74,16 @@ public class theme
             "</div>" +
         "</div>";
     
+    }
+    public string getLeftMenu()
+    {
+        string inner = "";
+        StoreDB myStore = new StoreDB();
+        List<sProductionCategory> lProduction = myStore.searchProductionCategory();
+        foreach (sProductionCategory myPorduct in lProduction)
+        {
+            inner += "<a href='./product.aspx?id=" + myPorduct.ID + "' class='list-group-item'>" + myPorduct.CategoryName + "</a>";
+        }
+        return inner;
     }
 }

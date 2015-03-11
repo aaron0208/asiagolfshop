@@ -34,9 +34,10 @@ public struct dataTables
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
 public class AspAjax : System.Web.Services.WebService {
-
+    public bool Authenticated =false;
+    public const int Message_NoAuth = -1;
     public AspAjax () {
-
+        Authenticated = true;
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
     }
@@ -129,5 +130,34 @@ public class AspAjax : System.Web.Services.WebService {
         this.Context.Response.Write(serializer.Serialize(returnvalue));
         //string[] weekDays = { "Sun", "Mon", "Tue", "Wed", "<button>編輯</button>" };
     }
+    [WebMethod]
+    public string CreateCategory(string category)
+    {
+        string returnValue = "";
+        if (!Authenticated)
+            returnValue = Message_NoAuth.ToString();
+        else
+        {
+            StoreDB myStore = new StoreDB();
+            returnValue = myStore.CreateProductionCategory(category);
+        }
+        return returnValue;
+    }
+    [WebMethod]
+    public string CreateProduction(sProduction obj)
+    {
+        //return "1";
+        string returnValue = "";
+        if (!Authenticated)
+            returnValue = Message_NoAuth.ToString();
+        else
+        {
+            StoreDB myStore = new StoreDB();
+            returnValue = myStore.CreateProduction(obj);
+        }
+        return returnValue;
+    }
+    
+    
 }
 

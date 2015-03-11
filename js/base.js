@@ -1,4 +1,5 @@
-﻿function getSearchCondition() {
+﻿var MessageSuccess = "success";
+function getSearchCondition() {
     var data = [];
     $(".cSearch").each(function() {
         var current = $(this);

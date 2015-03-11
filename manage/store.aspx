@@ -47,13 +47,16 @@
         <script type="text/javascript" src="../js/jquery.form.js"></script>
         <script type="text/javascript" src="../js/uploadPreview.js"></script>
         <script type="text/javascript" src="../js/jquery.mu.image.resize.js"></script>
+        <script type="text/javascript" src="../js/base.js"></script>
         <script type="text/javascript" src="../manage/js/store.js"></script>
 </head>
 <body class="bootstrap-admin-with-small-navbar wysihtml5-supported">
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+        <asp:ScriptManager ID="ScriptManager" runat="server">
+            <Services>
+                <asp:ServiceReference Path="~/AspAjax.asmx" />
+            </Services>
+        </asp:ScriptManager>
     </form>
     <!-- main / large navbar -->
     <nav class="navbar navbar-default navbar-fixed-top bootstrap-admin-navbar bootstrap-admin-navbar-under-small" role="navigation">
@@ -129,22 +132,13 @@
                                                             <tr>
                                                                 <td>分類名稱:</td><td><input type="text" class="cSearch" id="search_account"/></td>
                                                                 <td>
-                                                                    <button class="btn btn-lg btn-primary" onclick="goSearch()">新增</button>
-                                                                    <button class="btn btn-lg btn-primary" onclick="goSearch()">排序</button>
+                                                                    <button class="" onclick="goCreateCategory()">新增</button>
+                                                                    
                                                                 </td>
                                                             </tr>
                                                         </table>
-                                                        <table class="table table-striped table-bordered" id="Table3">
-                                                            <tr>
-                                                                <th>分類名稱</th>
-                                                                <th>功能</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Drivers 一號木桿</td>
-                                                                <td>刪除</td>
-                                                            </tr>
-                                                        </table>
-                                                        
+                                                        <div id="tableProductCategory" runat="server"></div>
+                                                        <button class="" onclick="saveAllCategory()">儲存排序</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,9 +153,9 @@
                                             <table class="table table-striped table-bordered" id="Table1" border="0">
                                                 <tr>
 			                                        <th width="150">產品編號</th>
-			                                        <td><span id="storeID" runat="server"></span></td>
+			                                        <td><span id="ProductID" runat="server"></span></td>
         			                                
-			                                        <th rowspan="5" width="200">
+			                                        <th rowspan="10" width="200">
 			                                            <p align="center">產品照片<br />
         			                                        
 			                                                <input id="uploadFile" name="storePhoto" type="file" name="File1" size="1" />
@@ -179,13 +173,13 @@
 			                                    <tr>
 			                                        <th width="150">產品名稱</th>
 			                                        <td>
-			                                        <input id="storeName" type="text" runat="server" /><span class="startMark">*</span></td>
+			                                        <input id="Name" type="text" runat="server" /><span class="startMark">*</span></td>
         			                                
 			                                    </tr>
 			                                    <tr>
 			                                        <th>產品價格</th>
 			                                        <td>
-			                                            <input id="phone1" type="text" runat="server" /></select><span class="startMark">*</span>
+			                                            <input id="Price" type="text" runat="server" /></select><span class="startMark">*</span>
 			                                        </td>
         			                                
 			                                    </tr>
@@ -200,19 +194,59 @@
 			                                    <tr>
 			                                        <th>產品等級</th>
 			                                        <td>
-			                                            <select id="Select1" runat="server">
-			                                                <option>1</option>
-			                                                <option>2</option>
-			                                                <option>3</option>
-			                                                <option>4</option>
-			                                                <option>5</option>
+			                                            <select id="ProductionLevel" runat="server">
+			                                                <option value="0">A+</option>
+			                                                <option value="1">A</option>
+			                                                <option value="2">B+</option>
+			                                                <option value="3">B</option>
+			                                                <option value="4">C+</option>
+			                                                <option value="5">C</option>
+			                                                <option value="6">D+</option>
+			                                                <option value="7">D</option>
 			                                            </select>
 			                                        </td>  
 			                                    </tr>
 			                                    <tr>
-			                                        <th>產品介紹</th>
+			                                        <th>左右手</th>
 			                                        <td>
-			                                            <textarea id="Textarea1" rows="5" style="width:95%" runat="server" ></textarea>
+			                                            <select id="Hand" runat="server">
+			                                                <option value="0">請選擇</option>
+			                                                <option value="1">左手</option>
+			                                                <option value="2">右手</option>
+			                                            </select>
+			                                        </td>  
+			                                    </tr>
+			                                    <tr>
+			                                        <th>角度</th>
+			                                        <td>
+			                                            <select id="Angle" runat="server">
+			                                                <option value="0">請選擇</option>
+			                                               
+			                                            </select>
+			                                        </td>  
+			                                    </tr>
+			                                    <tr>
+			                                        <th>桿身</th>
+			                                        <td>
+			                                            <select id="GolfClub" runat="server">
+			                                                <option value="0">請選擇</option>
+			                                               
+			                                            </select>
+			                                        </td>  
+			                                    </tr>
+			                                    <tr>
+			                                        <th>硬度</th>
+			                                        <td>
+			                                            <select id="GolfHard" runat="server">
+			                                                <option value="0">請選擇</option>
+			                                               
+			                                            </select>
+			                                        </td>  
+			                                    </tr>
+			                                    <tr>
+			                                        <th>產品簡介</th>
+			                                        <td>
+			                                            <textarea id="Introduction" rows="5" style="width:95%" runat="server" ></textarea>
 			                                        </td>
 			                                    </tr>
 			                                    <tr>
@@ -224,8 +258,8 @@
         			           
                                             </table>
                                             </form>
-                                            <button class="btn btn-lg btn-primary" onclick="updateStore()">更新</button>
-                                            <button class="btn btn-lg btn-primary" onclick="updateStore()">預覽</button>
+                                            <button class="btn btn-lg btn-primary" onclick="CreateProduction()">新增</button>
+                                            <button class="btn btn-lg btn-primary" onclick="ReviewProduction()">預覽</button>
                                     </div>
                                 </div>
                             </div>

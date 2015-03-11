@@ -1,59 +1,93 @@
-﻿var editor
+﻿var editor;
 $(function() {
-editor = CKEDITOR.replace('FullIntro', { 'height': 400 }); 
-
-    $('.datepicker').datepicker();
-    $('.uniform_on').uniform();
-    $('.chzn-select').chosen();
-    $('.selectize-select').selectize();
-    $('.textarea-wysihtml5').wysihtml5({
-        stylesheets: [
-                        'vendors/bootstrap-wysihtml5-rails-b3/vendor/assets/stylesheets/bootstrap-wysihtml5/wysiwyg-color.css'
-                    ]
-    });
-
-    $('#rootwizard').bootstrapWizard({
-        'nextSelector': '.next',
-        'previousSelector': '.previous',
-        onNext: function(tab, navigation, index) {
-            var $total = navigation.find('li').length;
-            var $current = index + 1;
-            var $percent = ($current / $total) * 100;
-            $('#rootwizard').find('.progress-bar').css('width', $percent + '%');
-            // If it's the last tab then hide the last button and show the finish instead
-            if ($current >= $total) {
-                $('#rootwizard').find('.pager .next').hide();
-                $('#rootwizard').find('.pager .finish').show();
-                $('#rootwizard').find('.pager .finish').removeClass('disabled');
-            } else {
-                $('#rootwizard').find('.pager .next').show();
-                $('#rootwizard').find('.pager .finish').hide();
-            }
-        },
-        onPrevious: function(tab, navigation, index) {
-            var $total = navigation.find('li').length;
-            var $current = index + 1;
-            var $percent = ($current / $total) * 100;
-            $('#rootwizard').find('.progress-bar').css('width', $percent + '%');
-            // If it's the last tab then hide the last button and show the finish instead
-            if ($current >= $total) {
-                $('#rootwizard').find('.pager .next').hide();
-                $('#rootwizard').find('.pager .finish').show();
-                $('#rootwizard').find('.pager .finish').removeClass('disabled');
-            } else {
-                $('#rootwizard').find('.pager .next').show();
-                $('#rootwizard').find('.pager .finish').hide();
-            }
-        },
-        onTabShow: function(tab, navigation, index) {
-            var $total = navigation.find('li').length;
-            var $current = index + 1;
-            var $percent = ($current / $total) * 100;
-            $('#rootwizard').find('.bar').css({ width: $percent + '%' });
+AspAjax.set_defaultSucceededCallback(SucceededCallback);
+AspAjax.set_defaultFailedCallback(FailedCallback);
+editor = CKEDITOR.replace('FullIntro', { 'height': 400 });
+    $("#uploadFile").uploadPreview({ width: "auto", height: "auto", imgDiv: "#storePhotoUrl" });
+    $("#uploadFile").live('change', function() {
+        if (($(this).val).length > 0) {
+            var src = $("#storePhotoHideDiv").find("img").attr("src");
+            $("#PhotoShow").html('<img src="' + src + '" alt="" style="width:180px;"/>');
+            //$("#PhotoShow").find("img").muImageResize({ width: 270, height: 310 });
         }
     });
-    $('#rootwizard .finish').click(function() {
-        alert('Finished!, Starting over!');
-        $('#rootwizard').find('a[href*=\'tab1\']').trigger('click');
-    });
 });
+function SucceededCallback(result, userContext, methodName) {
+    switch (methodName) {
+        case "CreateCategory":
+            CreateCategoryResponse(result);
+            break;
+        case "CreateProduction":
+            uploadProductPhoto(result);
+            break;
+    }
+}
+function FailedCallback(error, userContext, methodName) {
+    //  alert("功能有問題 請再試一次 或重新整理" + error.get_message() + " " + methodName);
+}
+function goCreateCategory() {
+    var Category = $("#search_account").val();
+    if (Category.length == 0) {
+        alert("請填寫分類名稱");
+    }
+    else {
+        AspAjax.CreateCategory(Category);
+    }
+}
+function CreateCategoryResponse(result) {
+    if (result = MessageSuccess) {
+        alert("新增成功");
+        window.location.reload();
+    }
+    else { 
+        alert("新增失敗");
+    }
+}
+function CreateProduction() {
+    var obj = new Object();
+    obj.Name = $("#Name").val();
+    obj.Price = $("#Price").val();
+    obj.ProductionCategory = $("#Production_Category").val();
+    obj.ProductionLevel = $("#ProductionLevel").val();
+    obj.Hand = $("#Hand").val();
+    obj.Angle = $("#Angle").val();
+    obj.GolfClub = $("#GolfClub").val();
+    obj.GolfHard = $("#GolfHard").val();
+    obj.Introduction = $("#Introduction").val();
+    obj.FullIntro = editor.getData();
+    
+    AspAjax.CreateProduction(obj);
+}
+function uploadProductPhoto(result) {
+    if (result == "0")
+        return;
+    var Filevalue = $("#uploadFile").val();
+    if (Filevalue.length > 0) {
+        var obj = new Object();
+        var picSave = false;
+        var options = {
+            type: "POST",
+            url: '../Files.ashx?type=productionPic&productid=' + result,
+            async: false,
+            success: function(value) {
+                if (value.length > 0) {
+                    saveProductionSuccess(value);
+                }
+                else {
+                    alert("上傳照片發生錯誤");
+                }
+            }
+        };
+        $('#GmyForm').ajaxSubmit(options); // 將options傳給ajaxForm
+    }
+    else {
+        saveProductionSuccess(result);
+    }
+}
+function saveProductionSuccess(result) {
+    if (result == MessageSuccess)
+        alert("新增成功");
+    else
+        alert("新增失敗");
+    location.reload();
+}

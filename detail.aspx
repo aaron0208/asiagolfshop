@@ -47,24 +47,14 @@
         <div class="row">
             <div class="col-md-3">
                 <p class="lead">球具類別</p>
-                <div class="list-group">
-                    <a href="./product.aspx?id=1" class="list-group-item">Drivers 一號木桿</a>
-                    <a href="./product.aspx?id=2" class="list-group-item">FW 球道木桿 </a>
-                    <a href="./product.aspx?id=3" class="list-group-item">Iron sets 鐵桿組</a>
-                    <a href="./product.aspx?id=4" class="list-group-item">Wedges 挖起桿</a>
-                    <a href="./product.aspx?id=5" class="list-group-item">Putters 推桿</a>
-                    <a href="./product.aspx?id=5" class="list-group-item">Hybrid 混合桿</a>
-                    <a href="./product.aspx?id=6" class="list-group-item">Shafts&Grips 桿身、握把</a>
-                    <a href="./product.aspx?id=7" class="list-group-item">Accessories 配件</a>
-                    <a href="./product.aspx?id=8" class="list-group-item">Apparel 服飾</a>
-                    
+                <div class="list-group" runat="server" id="left_menu">
                 </div>
             </div>
             <div class="col-md-9">
                 <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Portfolio Item
+                <h1 class="page-header" runat="server" id="Title">Portfolio Item
                     <small>Item Subheading</small>
                 </h1>
             </div>
@@ -74,8 +64,8 @@
         <!-- Portfolio Item Row -->
         <div class="row">
 
-            <div class="col-md-8">
-                <img class="img-responsive" src="./images/golfimg1.png" alt="">
+            <div class="col-md-8" id="mainImg" runat="server">
+                
             </div>
 
             <div class="col-md-4">
@@ -126,7 +116,8 @@
 
         </div>
         <!-- /.row -->
-
+        <div class="row" id="fullintroduction" runat="server">
+        </div>
         <hr>
 
         <!-- Footer -->
