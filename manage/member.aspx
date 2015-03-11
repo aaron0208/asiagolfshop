@@ -133,7 +133,7 @@
                     "processing": true,
                     "serverSide": true,
                     "ajax": {
-                        "url": "../AspAjax.asmx/searchMember",
+                        "url": "../Supervisor.asmx/searchMember",
                         "type": "POST",
                         "dataType": "json",
                         "data": data,

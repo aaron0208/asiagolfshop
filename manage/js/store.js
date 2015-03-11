@@ -1,8 +1,9 @@
 ﻿var editor;
 $(function() {
-AspAjax.set_defaultSucceededCallback(SucceededCallback);
-AspAjax.set_defaultFailedCallback(FailedCallback);
-editor = CKEDITOR.replace('FullIntro', { 'height': 400 });
+Supervisor.set_defaultSucceededCallback(SucceededCallback);
+Supervisor.set_defaultFailedCallback(FailedCallback);
+    $('input[type="text"]').val("");
+    editor = CKEDITOR.replace('FullIntro', { 'height': 400 });
     $("#uploadFile").uploadPreview({ width: "auto", height: "auto", imgDiv: "#storePhotoUrl" });
     $("#uploadFile").live('change', function() {
         if (($(this).val).length > 0) {
@@ -20,6 +21,15 @@ function SucceededCallback(result, userContext, methodName) {
         case "CreateProduction":
             uploadProductPhoto(result);
             break;
+        case "PauseCategory":
+            setCategoryResponse(result, "下架");
+            break;
+        case "RestartCategory":
+            setCategoryResponse(result, "上架");
+            break;
+        case "DeleteCategory":
+            setCategoryResponse(result, "刪除");
+            break;
     }
 }
 function FailedCallback(error, userContext, methodName) {
@@ -31,8 +41,15 @@ function goCreateCategory() {
         alert("請填寫分類名稱");
     }
     else {
-        AspAjax.CreateCategory(Category);
+        Supervisor.CreateCategory(Category);
     }
+}
+function setCategoryResponse(result, actionName) {
+    if (result == MessageSuccess)
+        alert(actionName + "成功");
+    else
+        alert(actionName + "失敗");
+    window.location.reload();
 }
 function CreateCategoryResponse(result) {
     if (result = MessageSuccess) {
@@ -56,7 +73,7 @@ function CreateProduction() {
     obj.Introduction = $("#Introduction").val();
     obj.FullIntro = editor.getData();
     
-    AspAjax.CreateProduction(obj);
+    Supervisor.CreateProduction(obj);
 }
 function uploadProductPhoto(result) {
     if (result == "0")
@@ -90,4 +107,16 @@ function saveProductionSuccess(result) {
     else
         alert("新增失敗");
     location.reload();
+}
+function pauseCategory(id) {
+    Supervisor.PauseCategory(id);
+}
+function restartCategory(id) {
+    Supervisor.RestartCategory(id);
+}
+function deleteCategory(id) {
+    var r = confirm("刪除此分類，會將所有此分類的產品通通下架，確定要刪除嗎?");
+    if (r == true) {
+        Supervisor.DeleteCategory(id);
+    }
 }

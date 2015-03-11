@@ -24,15 +24,25 @@ public partial class manage_store : System.Web.UI.Page
         }
         StoreDB myStore = new StoreDB();
         List<sProductionCategory> lProduction = myStore.searchProductionCategory();
-        string innerHtml = "<table class='table table-striped table-bordered'><tr><th>分類名稱</th><th>功能</th></tr>";
+        string innerHtml = "<table class='table table-striped table-bordered'><tr><th>分類名稱</th><th>狀態</th><th>功能</th></tr>";
         foreach (sProductionCategory myPorduct in lProduction)
         {
             innerHtml += "<tr id='pro_" + myPorduct.ID + "'>" +
                 "<td>" + myPorduct.CategoryName + "</td>" +
-                "<td>" + 
-                    "<button href=':deleteCategory(" + myPorduct.ID + ")'>刪除</button>" +
-                    "<button href='moveUp()'>往上移動</button>" +
-                    "<button href='moveDown()'>往下移動</button>" +
+                "<td>";
+            innerHtml += myPorduct.isPause.ToLower() == "true" ? "下架中" : "上架中";
+            innerHtml += "</td>" +
+                "<td>" +
+                    "<button onclick='deleteCategory(" + myPorduct.ID + ")'>刪除</button>";
+            if (myPorduct.isPause.ToLower() == "true")
+            {
+                innerHtml += "<button onclick='restartCategory(" + myPorduct.ID + ")'>上架</button>";
+            }
+            else{
+                innerHtml += "<button onclick='pauseCategory(" + myPorduct.ID + ")'>下架</button>";
+            }
+            innerHtml += "<button onclick='moveUp()'>往上移動</button>" +
+                    "<button onclick='moveDown()'>往下移動</button>" +
                 "</td>" +
                 "</tr>";
             Production_Category.Items.Add(new ListItem( myPorduct.CategoryName,myPorduct.ID.ToString()));      

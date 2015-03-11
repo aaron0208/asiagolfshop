@@ -34,6 +34,7 @@ public struct sProductionCategory
 {
     public int ID;
     public string CategoryName;
+    public string isPause;
 }
 public class StoreDB
 {
@@ -203,11 +204,38 @@ public class StoreDB
         
         return returnValue;
     }
+    public string PauseCategory(string CategoryID,bool isPause)
+    {
+        string success = "";
+        DataBase db = new DataBase();
+        string sqlString = "update store_ProductCategory set isPause=@isPause where ID=@ID";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@isPause", DbType.Boolean, isPause);
+        db.AddInParameter(command, "@ID", DbType.Int32, CategoryID);
+        success = db.ExecuteNonQuery(command).ToString();
+        if (int.Parse(success) > 0)
+            success = MessageSuccess;
+        return success;
+    }
+    public string DeleteCategory(string CategoryID)
+    {
+        string success = "";
+        DataBase db = new DataBase();
+        string sqlString = "update store_ProductCategory set isDelete=@isDelete where ID=@ID";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@isDelete", DbType.Boolean, 1);
+        db.AddInParameter(command, "@ID", DbType.Int32, CategoryID);
+        success = db.ExecuteNonQuery(command).ToString();
+        if (int.Parse(success) > 0)
+            success = MessageSuccess;
+        return success;
+    }
+    
     private int getTotalCategoryCounter()
     {
         int returnvalue = 0;
         DataBase db = new DataBase();
-        string sqlString = "select count(*) from store_ProductCategory ";
+        string sqlString = "select count(*) from store_ProductCategory";
         DbCommand command = db.GetSqlStringCommond(sqlString);
         returnvalue = (int)db.ExecuteScalar(command);
         //returnvalue = command.ExecuteNonQuery();
@@ -238,13 +266,14 @@ public class StoreDB
         List<sProductionCategory> returnValue = new List<sProductionCategory>();
         sProductionCategory myCategory = new sProductionCategory();
         DataBase db = new DataBase();
-        string sqlString = "select * from store_ProductCategory order by Sequence";
+        string sqlString = "select * from store_ProductCategory where isDelete=0 order by Sequence";
         DbCommand command = db.GetSqlStringCommond(sqlString);
         DbDataReader dr = db.ExecuteReader(command);
         while (dr.Read())
         {
             myCategory.ID = int.Parse(dr["ID"].ToString());
             myCategory.CategoryName = dr["CategoryName"].ToString();
+            myCategory.isPause = dr["isPause"].ToString();
             returnValue.Add(myCategory);
         }
         return returnValue;

@@ -31,7 +31,7 @@
            <script type="text/javascript" src="../js/html5shiv.js"></script>
            <script type="text/javascript" src="../js/respond.min.js"></script>
         <![endif]-->
-        <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/twitter-bootstrap-hover-dropdown.min.js"></script>
         <script type="text/javascript" src="../js/bootstrap-admin-theme-change-size.js"></script>
@@ -54,7 +54,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager" runat="server">
             <Services>
-                <asp:ServiceReference Path="~/AspAjax.asmx" />
+                <asp:ServiceReference Path="~/Supervisor.asmx" />
             </Services>
         </asp:ScriptManager>
     </form>
