@@ -17,6 +17,10 @@ public partial class manage_store : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!HttpContext.Current.User.Identity.IsAuthenticated || !HttpContext.Current.User.IsInRole("admin"))
+        {   
+            Response.Redirect("../Default.aspx");
+        }
         StoreDB myStore = new StoreDB();
         List<sProductionCategory> lProduction = myStore.searchProductionCategory();
         string innerHtml = "<table class='table table-striped table-bordered'><tr><th>分類名稱</th><th>功能</th></tr>";
