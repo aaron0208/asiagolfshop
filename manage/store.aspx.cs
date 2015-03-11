@@ -18,8 +18,9 @@ public partial class manage_store : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!HttpContext.Current.User.Identity.IsAuthenticated || !HttpContext.Current.User.IsInRole("admin"))
-        {   
-            Response.Redirect("../Default.aspx");
+        {
+            Response.Redirect("../Default.aspx?isauth=" + HttpContext.Current.User.Identity.IsAuthenticated.ToString()+
+                "&role=" + HttpContext.Current.User.IsInRole("admin").ToString());
         }
         StoreDB myStore = new StoreDB();
         List<sProductionCategory> lProduction = myStore.searchProductionCategory();
