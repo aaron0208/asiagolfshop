@@ -19,5 +19,7 @@ public partial class manage_bid : System.Web.UI.Page
         {
             Response.Redirect("../Default.aspx");
         }
+        theme manageTheme = new theme();
+        left_menu.InnerHtml = manageTheme.getManageLeftMenu();
     }
 }

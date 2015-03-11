@@ -6,11 +6,44 @@ function getSearchCondition() {
         var type = current.attr("type");
         switch (type) {
             case "text":
-                data.push({Name:current.attr("id"),Value:current.val()});
+                data.push({ Name: current.attr("id"), Value: current.val() });
+                break;
+            case "":
                 break;
 
         }
     });
+    $("#search_table select").each(function(n) {
+        if (this.type == "select-one") {
+            var fn; //= this.id;
+
+            fn = this.id;
+            var val = ""; //Avoid IE8 JSON bug
+            if (this.type == "checkbox" || this.type == "radio")
+                val = this.checked + "";
+            else if (this.type == "select-one") {
+                var itemValue = $(this).find('option:selected').attr("value");
+                if (itemValue != "0") {
+                    val = $(this).find('option:selected').attr("value") + "";
+                }
+            }
+            else if (this.type == "select-multiple") {
+                var selected = [];
+                $(this).children().each(function(i) {
+                    if (this.selected) selected.push(i);
+                });
+                val = selected.join(",") + "";
+            }
+            else {
+                val = this.value + "";
+            }
+            if (val.length > 0 && val != undefined && val != "undefined" && val != "請選擇" && fn.length > 0) {
+                data.push({ Name: fn, Value: val });
+            }
+
+        }
+    });
+
     return { "SearchCondition": data };
 }
 function baseSucceededCallback(result, userContext, methodName) {

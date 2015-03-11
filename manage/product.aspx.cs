@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class manage_member : System.Web.UI.Page
+public partial class manage_product : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -19,7 +19,18 @@ public partial class manage_member : System.Web.UI.Page
         {
             Response.Redirect("../Default.aspx");
         }
-        theme manageTheme = new theme();
-        left_menu.InnerHtml = manageTheme.getManageLeftMenu();
+        try
+        {
+            int ID = int.Parse(Context.Request.QueryString["id"].ToString());
+            Session["aProductId"] = ID;
+            theme manageTheme = new theme();
+            left_menu.InnerHtml = manageTheme.getManageLeftMenu();
+        }
+        catch
+        {
+            Page.Response.Redirect("./searchstore.aspx");
+        }
+
+        
     }
 }

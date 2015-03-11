@@ -70,6 +70,79 @@ public class StoreDB
         return success;
     }
 
+    public List<object> searchProduct(DTParameterModel ParameterModel)
+    {
+        List<object> returnvalue = new List<object>();
+        string wheresql = " where 1=1";
+        foreach(DTCondition myCondition in ParameterModel.Condition)
+        {
+            switch (myCondition.Name)
+            {
+                    
+            
+                case "search_account":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        wheresql += " and A.ID = @" + myCondition.Name + " ";
+                    }
+                    break;
+                case "search_name":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        wheresql += " and Name like @" + myCondition.Name + " ";
+                    }
+                    break;
+                case "search_category":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        wheresql += " and Category = @" + myCondition.Name + " ";
+                    }
+                    break;
+            }
+        }
+
+        DataBase db = new DataBase();
+       
+        string sqlString = "SELECT A.ID,A.Name,B.CategoryName FROM store_Production A left join store_ProductCategory B on A.Category=B.ID " 
+            + wheresql;
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        foreach (DTCondition myCondition in ParameterModel.Condition)
+        {
+            switch (myCondition.Name)
+            {
+                case "search_account":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        db.AddInParameter(command, "@" + myCondition.Name, DbType.Int64,  myCondition.Value );
+                    }
+                    break;
+                case "search_name":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        db.AddInParameter(command, "@" + myCondition.Name, DbType.String, "%" + myCondition.Value + "%");
+                    }
+                    break;
+                case "search_category":
+                    if (myCondition.Value.Length > 0)
+                    {
+                        db.AddInParameter(command, "@" + myCondition.Name, DbType.Int16,  myCondition.Value);
+                    }
+                    break;
+            }
+        }
+        
+        DbDataReader dr= db.ExecuteReader(command);
+        while (dr.Read())
+        {
+            string[] atom = { dr["ID"].ToString(), dr["Name"].ToString(), dr["CategoryName"].ToString(), 
+                                "<a href='../manage/product.aspx?id=" + dr["ID"].ToString() + "'>檢視</a>" };
+            returnvalue.Add(atom);
+        }
+        dr.Close();
+        command.Connection.Close();
+        
+        return returnvalue;
+    }
     public List<sProduction> searchProductionbyCateogry(string category)
     {
         List<sProduction> returnValue = new List<sProduction>();

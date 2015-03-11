@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
-public partial class manage_member : System.Web.UI.Page
+public partial class manage_productcreate : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
