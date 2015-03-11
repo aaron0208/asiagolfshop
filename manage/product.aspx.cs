@@ -33,8 +33,8 @@ public partial class manage_product : System.Web.UI.Page
             String pnum = snum.PadLeft(8, '0');
             String fnum = String.Format("{0:00000000}", Convert.ToInt32(snum));
             ProductID.InnerHtml = fnum;
-            Name.Value = myProduction.Name;
-            Price.Value = myProduction.Price;
+            name.Value = myProduction.Name;
+            price.Value = myProduction.Price;
 
             List<sProductionCategory> lProduction = myStore.searchProductionCategory();
             foreach (sProductionCategory myPorduct in lProduction)

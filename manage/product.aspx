@@ -24,8 +24,7 @@
         <link rel="stylesheet" media="screen" href="../js/chosen.min.css">
         <link rel="stylesheet" media="screen" href="../js/selectize/dist/css/selectize.bootstrap3.css">
         <link rel="stylesheet" media="screen" href="../js/bootstrap-wysihtml5-rails-b3/vendor/assets/stylesheets/bootstrap-wysihtml5/core-b3.css">
-        <link rel="stylesheet" media="screen" href="../css/manage.css">
-        <link rel="stylesheet" media="screen" href="../css/store.css">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
            <script type="text/javascript" src="../js/html5shiv.js"></script>
@@ -48,7 +47,7 @@
         <script type="text/javascript" src="../js/uploadPreview.js"></script>
         <script type="text/javascript" src="../js/jquery.mu.image.resize.js"></script>
         <script type="text/javascript" src="../js/base.js"></script>
-        <script type="text/javascript" src="../manage/js/productcreate.js"></script>
+        <script type="text/javascript" src="../manage/js/production.js"></script>
 </head>
 <body class="bootstrap-admin-with-small-navbar wysihtml5-supported">
     <form id="form1" runat="server">
@@ -89,7 +88,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-header">
-                            <h1>新增商品管理</h1>
+                            <h1>更新商品管理</h1>
                         </div>
                     </div>
                 </div>
@@ -121,13 +120,15 @@
 	                                    <tr>
 	                                        <th width="150">產品名稱</th>
 	                                        <td>
-	                                        <input id="Name" type="text" runat="server" value="11"/><span class="startMark">*</span></td>
+	                                        <input id="name" type="text" runat="server" /> 
+	                                        <span class="startMark">*</span></td>
 			                                
 	                                    </tr>
 	                                    <tr>
 	                                        <th>產品價格</th>
 	                                        <td>
-	                                            <input id="Price" type="text" runat="server" /><span class="startMark">*</span>
+	                                            <input id="price" type="text" runat="server" /> 
+	                                            <span class="startMark">*</span>
 	                                        </td>
 			                                
 	                                    </tr>
