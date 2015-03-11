@@ -24,8 +24,7 @@
         <link rel="stylesheet" media="screen" href="../js/chosen.min.css">
         <link rel="stylesheet" media="screen" href="../js/selectize/dist/css/selectize.bootstrap3.css">
         <link rel="stylesheet" media="screen" href="../js/bootstrap-wysihtml5-rails-b3/vendor/assets/stylesheets/bootstrap-wysihtml5/core-b3.css">
-        <link rel="stylesheet" media="screen" href="../css/manage.css">
-        <link rel="stylesheet" media="screen" href="../css/store.css">
+
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
            <script type="text/javascript" src="../js/html5shiv.js"></script>

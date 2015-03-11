@@ -28,7 +28,7 @@ public partial class manage_product : System.Web.UI.Page
         }
         catch
         {
-            Page.Response.Redirect("./searchstore.aspx");
+            Page.Response.Redirect("./productsearch.aspx");
         }
 
         

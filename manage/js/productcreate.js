@@ -38,8 +38,12 @@ function CreateProduction() {
     obj.GolfHard = $("#GolfHard").val();
     obj.Introduction = $("#Introduction").val();
     obj.FullIntro = editor.getData();
-
-    Supervisor.CreateProduction(obj);
+    if (obj.Name.length == 0)
+        alert("請填寫產品名稱");
+    else if (obj.Price.length == 0)
+        alert("請填寫價格");
+    else
+        Supervisor.CreateProduction(obj);
 }
 function uploadProductPhoto(result) {
     if (result == "0")
@@ -68,9 +72,11 @@ function uploadProductPhoto(result) {
     }
 }
 function saveProductionSuccess(result) {
-    if (result == MessageSuccess)
+    if (result > 0) {
         alert("新增成功");
+        window.location = "./production.aspx?id=" + result;
+    }
     else
         alert("新增失敗");
-    location.reload();
+    
 }
