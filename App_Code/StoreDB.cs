@@ -69,7 +69,6 @@ public class StoreDB
         success = db.ExecuteScalar(command).ToString();
         return success;
     }
-
     public List<object> searchProduct(DTParameterModel ParameterModel)
     {
         List<object> returnvalue = new List<object>();
@@ -78,8 +77,6 @@ public class StoreDB
         {
             switch (myCondition.Name)
             {
-                    
-            
                 case "search_account":
                     if (myCondition.Value.Length > 0)
                     {
@@ -100,9 +97,7 @@ public class StoreDB
                     break;
             }
         }
-
         DataBase db = new DataBase();
-       
         string sqlString = "SELECT A.ID,A.Name,B.CategoryName FROM store_Production A left join store_ProductCategory B on A.Category=B.ID " 
             + wheresql;
         DbCommand command = db.GetSqlStringCommond(sqlString);
@@ -142,6 +137,32 @@ public class StoreDB
         command.Connection.Close();
         
         return returnvalue;
+    }
+    public sProduction selectProduction(int pID)
+    {
+        sProduction myProduction = new sProduction();
+        DataBase db = new DataBase();
+        string sqlString = "select * from store_Production where ID=@ID";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@ID", DbType.Int32, pID);
+        DbDataReader dr = db.ExecuteReader(command);
+        while (dr.Read())
+        {
+            myProduction.ID = int.Parse(dr["ID"].ToString());
+            myProduction.Name = dr["Name"].ToString();
+            myProduction.Price = dr["Price"].ToString();
+            myProduction.ProductionCategory = dr["Category"].ToString();
+            myProduction.ProductionLevel = dr["ProductLevel"].ToString();
+            myProduction.Introduction = dr["Introduction"].ToString();
+            myProduction.FullIntro = dr["HTML"].ToString();
+            myProduction.Hand = dr["Hand"].ToString();
+            myProduction.Angle = dr["Angle"].ToString();
+            myProduction.GolfClub = dr["GolfClub"].ToString();
+            myProduction.GolfHard = dr["HardLevel"].ToString();
+            myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
+
+        }
+        return myProduction;
     }
     public List<sProduction> searchProductionbyCateogry(string category)
     {

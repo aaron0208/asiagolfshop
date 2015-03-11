@@ -127,7 +127,7 @@
 		                                    <tr>
 		                                        <th>產品價格</th>
 		                                        <td>
-		                                            <input id="Price" type="text" runat="server" /></select><span class="startMark">*</span>
+		                                            <input id="Price" type="text" runat="server" /><span class="startMark">*</span>
 		                                        </td>
     			                                
 		                                    </tr>

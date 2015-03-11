@@ -121,13 +121,13 @@
 	                                    <tr>
 	                                        <th width="150">產品名稱</th>
 	                                        <td>
-	                                        <input id="Name" type="text" runat="server" /><span class="startMark">*</span></td>
+	                                        <input id="Name" type="text" runat="server" value="11"/><span class="startMark">*</span></td>
 			                                
 	                                    </tr>
 	                                    <tr>
 	                                        <th>產品價格</th>
 	                                        <td>
-	                                            <input id="Price" type="text" runat="server" /></select><span class="startMark">*</span>
+	                                            <input id="Price" type="text" runat="server" /><span class="startMark">*</span>
 	                                        </td>
 			                                
 	                                    </tr>
