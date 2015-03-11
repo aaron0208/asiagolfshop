@@ -148,9 +148,14 @@ public class StoreDB
         List<sProduction> returnValue = new List<sProduction>();
         sProduction myProduction = new sProduction();
         DataBase db = new DataBase();
-        string sqlString = "select * from store_Production where Category=@Category order by ID desc";
+        string sqlString;
+        if(category.Length==0)
+            sqlString = "select * from store_Production  order by ID desc";
+        else
+            sqlString = "select * from store_Production where Category=@Category order by ID desc";
         DbCommand command = db.GetSqlStringCommond(sqlString);
-        db.AddInParameter(command, "@Category", DbType.Int16, category);
+        if (category.Length != 0)
+            db.AddInParameter(command, "@Category", DbType.Int16, category);
         DbDataReader dr = db.ExecuteReader(command);
         while (dr.Read())
         {
