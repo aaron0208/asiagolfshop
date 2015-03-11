@@ -69,6 +69,32 @@ public class StoreDB
         success = db.ExecuteScalar(command).ToString();
         return success;
     }
+    public string UpdateProduction(sProduction obj)
+    {
+        string success = "";
+        DataBase db = new DataBase();
+       
+        string sqlString = "update store_Production set Name=@Name,Price=@Price,Category=@Category,ProductLevel=@ProductLevel," +
+        "Introduction=@Introduction,HTML=@HTML,Hand=@Hand,Angle=@Angle,GolfClub=@GolfClub,HardLevel=@HardLevel" +
+        " where ID=@ID ";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@ID", DbType.Int32, obj.ID);
+        db.AddInParameter(command, "@Name", DbType.String, obj.Name);
+        db.AddInParameter(command, "@Price", DbType.Int32, obj.Price);
+        db.AddInParameter(command, "@Category", DbType.Int16, obj.ProductionCategory);
+        db.AddInParameter(command, "@ProductLevel", DbType.Int16, obj.ProductionLevel);
+        db.AddInParameter(command, "@Introduction", DbType.String, obj.Introduction);
+        db.AddInParameter(command, "@HTML", DbType.String, obj.FullIntro);
+        db.AddInParameter(command, "@Hand", DbType.Int16, obj.Hand);
+
+        db.AddInParameter(command, "@Angle", DbType.Int32, obj.Angle);
+        db.AddInParameter(command, "@GolfClub", DbType.Int16, obj.GolfClub);
+        db.AddInParameter(command, "@HardLevel", DbType.Int16, obj.GolfHard);
+        success = db.ExecuteNonQuery(command).ToString();
+        //success = db.ExecuteScalar(command).ToString();
+        return success;
+    }
+    
     public List<object> searchProduct(DTParameterModel ParameterModel)
     {
         List<object> returnvalue = new List<object>();

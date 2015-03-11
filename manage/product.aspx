@@ -207,8 +207,8 @@
 			           
                                     </table>
                                     </form>
-                                <button class="btn btn-lg btn-primary" onclick="CreateProduction()">新增</button>
-                                <button class="btn btn-lg btn-primary" onclick="ReviewProduction()">預覽</button>
+                                <button class="btn btn-lg btn-primary" onclick="UpdateProduction()">更新</button>
+                               
                             </div>
                         </div>
                     </div>

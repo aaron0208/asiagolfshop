@@ -1,4 +1,15 @@
 ﻿var MessageSuccess = "success";
+function gup(name) {
+    name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+    var regexS = '[\\?&]' + name + '=([^&#]*)';
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+
+    if (results)
+        return results[1];
+    else
+        return '';
+}
 function getSearchCondition() {
     var data = [];
     $(".cSearch").each(function() {

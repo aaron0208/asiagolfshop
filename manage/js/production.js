@@ -16,7 +16,7 @@ $(function() {
 function SucceededCallback(result, userContext, methodName) {
     switch (methodName) {
 
-        case "CreateProduction":
+        case "UpdateProduction":
             uploadProductPhoto(result);
             break;
 
@@ -28,8 +28,9 @@ function FailedCallback(error, userContext, methodName) {
 
 function UpdateProduction() {
     var obj = new Object();
-    obj.Name = $("#Name").val();
-    obj.Price = $("#Price").val();
+    obj.ID = gup("id");
+    obj.Name = $("#name").val();
+    obj.Price = $("#price").val();
     obj.ProductionCategory = $("#Production_Category").val();
     obj.ProductionLevel = $("#ProductionLevel").val();
     obj.Hand = $("#Hand").val();
@@ -46,7 +47,7 @@ function UpdateProduction() {
         alert("價格請填寫數字");
     }
     else
-        Supervisor.CreateProduction(obj);
+        Supervisor.UpdateProduction(obj);
 }
 function uploadProductPhoto(result) {
     if (result == "0")
@@ -76,10 +77,10 @@ function uploadProductPhoto(result) {
 }
 function saveProductionSuccess(result) {
     if (result > 0) {
-        alert("新增成功");
+        alert("更新成功");
         window.location = "./product.aspx?id=" + result;
     }
     else
-        alert("新增失敗");
+        alert("更新失敗");
 
 }

@@ -72,6 +72,23 @@ public class Supervisor : System.Web.Services.WebService {
         //string[] weekDays = { "Sun", "Mon", "Tue", "Wed", "<button>編輯</button>" };
 
     }
+    
+    [WebMethod]
+    public string UpdateProduction(sProduction obj)
+    {
+        //return "1";
+        string returnValue = "";
+        if (!Authenticated || !InAdminRoles)
+            returnValue = Message_NoAuth.ToString();
+        else
+        {
+            StoreDB myStore = new StoreDB();
+            returnValue = myStore.UpdateProduction(obj);
+            if (int.Parse(returnValue) >= 1)
+                returnValue = obj.ID.ToString();
+        }
+        return returnValue;
+    }
     [WebMethod]
     public string CreateProduction(sProduction obj)
     {
