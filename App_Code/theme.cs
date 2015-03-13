@@ -38,7 +38,7 @@ public class theme
                 "</button>" +
             "</div>" +
             "<!-- Collect the nav links, forms, and other content for toggling -->" +
-            "<div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>" +
+            "<div class='collapse navbar-collapse' id='main-navbar'>" +
                 "<ul class='nav navbar-nav'>" +
                     "<li><a href='./product.aspx'>產品</a></li>" +
                     "<li><a href='./bid.aspx'>競標區</a>" +
@@ -60,7 +60,10 @@ public class theme
         return
         "<div class='container'>" +
             "<div class='row'>" +
-                "<a href='./default.aspx'><img src='./images/logo.png'/></a>" +
+                "<a href='./default.aspx'>" + 
+                    "<img src='./images/logo.png' style='height: 48px;' />" + 
+                    "<img src='./images/asia-golf-shop-title.png' style='height: 30px; margin-top: 7px; margin-left: 4px;' />" +
+                    "</a>" +
                 "<div id='header_function_list'>" +
                     //"<div id='header_search_txt' class='header_function_list_element'>" +
                     //    "<i></i>" +

@@ -41,9 +41,13 @@ public partial class product : System.Web.UI.Page
                 innerString += " <div class='row'>";
             }
             innerString += "<div class='col-sm-4 col-lg-4 col-md-4' onclick='goDetail(" + production.ID + ")'>" +
-                        "<div class='thumbnail'>" +
-                            "<img src='./photos/production/" + production.ProductionPhoto + "' alt=''>" +
-                            "<div class='caption'>" +
+                        "<div class='thumbnail'>";
+                        if (production.ProductionPhoto.Count > 0)
+            {
+                innerString += "<img src='./photos/production/" + production.ProductionPhoto[0] + "' alt=''>" ;
+            }
+
+                        innerString += "<div class='caption'>" +
                                 "<p><h4>" + "<a href='./detail.aspx?id=" + production.ID + "'>" + production.Name + "</a></p>" +
                                 "<h4 class='pull-right'>$" + production.Price + "</h4>" +
 

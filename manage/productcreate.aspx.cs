@@ -28,5 +28,38 @@ public partial class manage_productcreate : System.Web.UI.Page
         {
             Production_Category.Items.Add(new ListItem(myPorduct.CategoryName, myPorduct.ID.ToString()));
         }
+        List systemList = new List();
+        string innerstring = "";
+        List<sList> myList = systemList.getList("hand");
+        foreach(sList atom in myList)
+        {
+            innerstring += "<label><input type='checkbox' name='hand' value='" + atom.ID + "'/>" + atom.ItemName + "</label>";
+        }
+        handBlock.InnerHtml = innerstring;
+        
+        innerstring = "";
+        myList = systemList.getList("angle");
+        foreach (sList atom in myList)
+        {
+            innerstring += "<label><input type='checkbox' name='angle' value='" + atom.ID + "'/>" + atom.ItemName + "</label>";
+        }
+        AngleBlock.InnerHtml = innerstring;
+
+        innerstring = "";
+        myList = systemList.getList("golfClub");
+        foreach (sList atom in myList)
+        {
+            innerstring += "<label><input type='checkbox' name='golfClub' value='" + atom.ID + "'/>" + atom.ItemName + "</label>";
+        }
+        golfClubBlock.InnerHtml = innerstring;
+
+        innerstring = "";
+        myList = systemList.getList("hardness");
+        foreach (sList atom in myList)
+        {
+            innerstring += "<label><input type='checkbox' name='hardness' value='" + atom.ID + "'/>" + atom.ItemName + "</label>";
+        }
+        hardnessBlock.InnerHtml = innerstring;
+
     }
 }

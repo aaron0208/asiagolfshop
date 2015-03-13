@@ -43,10 +43,10 @@ public partial class manage_product : System.Web.UI.Page
             }
             Production_Category.Items.FindByValue(myProduction.ProductionCategory).Selected = true;
             ProductionLevel.Items.FindByValue(myProduction.ProductionLevel).Selected = true;
-            Hand.Items.FindByValue(myProduction.Hand).Selected = true;
-            Angle.Items.FindByValue(myProduction.Angle).Selected = true;
-            GolfClub.Items.FindByValue(myProduction.GolfClub).Selected = true;
-            GolfHard.Items.FindByValue(myProduction.GolfHard).Selected = true;
+            //Hand.Items.FindByValue(myProduction.Hand).Selected = true;
+            //Angle.Items.FindByValue(myProduction.Angle).Selected = true;
+            //GolfClub.Items.FindByValue(myProduction.GolfClub).Selected = true;
+            //GolfHard.Items.FindByValue(myProduction.GolfHard).Selected = true;
             Introduction.Value = myProduction.Introduction;
             FullIntro.Value = myProduction.FullIntro;
         }

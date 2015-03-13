@@ -27,13 +27,16 @@ public partial class _Default : System.Web.UI.Page
         foreach (sProduction production in myProduction)
         {
             innerString += "<div class='col-sm-4 col-lg-4 col-md-4' onclick='goDetail(" + production.ID + ")'>" +
-                        "<div class='thumbnail'>" +
-                            "<img src='./photos/production/" + production.ProductionPhoto + "' alt=''>" +
-                            "<div class='caption'>" +
-                                "<p><h4>" + "<a href='./detail.aspx?id=" + production.ID + "'>" + production.Name + "</a></p>" +
-                                "<h4 class='pull-right'>$" + production.Price + "</h4>" +
-
-                                "</h4>" +
+                        "<div class='thumbnail'>";
+            if (production.ProductionPhoto.Count > 0)
+            {
+                innerString += "<div class='productIMG' style='background-image: url(./photos/production/" + production.ProductionPhoto[0] + ");'>" +
+                    "<img src='images/5.png' class='imgPlaceHolder'>" +
+                "</div>";
+            }
+            innerString += "<div class='caption'>" +
+                                "<h4>" + "<a href='./detail.aspx?id=" + production.ID + "'>" + production.Name + "</a>" +
+                                "<h5 class='text-right'>$" + production.Price + "</h5>" +
                                 "<p>" + production.Introduction + "</p>" +
                             "</div>" +
                         "</div>" +

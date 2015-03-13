@@ -31,27 +31,29 @@ public class Files : IHttpHandler, System.Web.SessionState.IRequiresSessionState
                     System.IO.Directory.CreateDirectory(mainPatch); //不存在，創建資料夾。
                 }
 
-                returnvalue = updateProductionPhoto(PicSave(context), productID);
+                returnvalue = PicSave(context, productID);
                 break;
         }  
         context.Response.Write(returnvalue);
         context.Response.End();
     }
-    private string PicSave(HttpContext context)
+    private string PicSave(HttpContext context, string productID)
     {
         HttpFileCollection files = context.Request.Files;
         string newFileName=Guid.NewGuid().ToString()+ ".jpg";
         string savePath = mainPatch + newFileName;
+        string success = "";
         if (files.Count > 0)
         {
             try
             {
-                
-                HttpPostedFile file = files[0];
-                
-                file.SaveAs(savePath);
-
-                return newFileName;
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFile file = files[i];
+                    file.SaveAs(savePath);
+                    success = updateProductionPhoto(newFileName, productID);
+                }
+                return success;
             }
             catch (Exception e)
             {

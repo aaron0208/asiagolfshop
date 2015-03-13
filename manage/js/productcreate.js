@@ -4,14 +4,17 @@ $(function() {
     Supervisor.set_defaultFailedCallback(FailedCallback);
     $('input[type="text"]').val("");
     editor = CKEDITOR.replace('FullIntro', { 'height': 400 });
-    $("#uploadFile").uploadPreview({ width: "auto", height: "auto", imgDiv: "#storePhotoUrl" });
-    $("#uploadFile").live('change', function() {
-        if (($(this).val).length > 0) {
-            var src = $("#storePhotoHideDiv").find("img").attr("src");
-            $("#PhotoShow").html('<img src="' + src + '" alt="" style="width:180px;"/>');
-            //$("#PhotoShow").find("img").muImageResize({ width: 270, height: 310 });
-        }
-    });
+    for (var i = 1; i <= 5; i++) {
+        $("#uploadFile" + i).uploadPreview({ width: "auto", height: "auto", imgDiv: "#storePhotoUrl" + i });
+        $("#uploadFile" + i).live('change', function() {
+            if (($(this).val).length > 0) {
+                var index = $(this).attr("class").replace("file_","");
+                var src = $("#storePhotoHideDiv" + index).find("img").attr("src");
+                $("#PhotoShow" + index).html('<img src="' + src + '" alt="" style="width:180px;"/>');
+                //$("#PhotoShow").find("img").muImageResize({ width: 270, height: 310 });
+            }
+        });
+    }
 });
 function SucceededCallback(result, userContext, methodName) {
     switch (methodName) {
@@ -32,12 +35,34 @@ function CreateProduction() {
     obj.Price = $("#Price").val();
     obj.ProductionCategory = $("#Production_Category").val();
     obj.ProductionLevel = $("#ProductionLevel").val();
-    obj.Hand = $("#Hand").val();
-    obj.Angle = $("#Angle").val();
-    obj.GolfClub = $("#GolfClub").val();
-    obj.GolfHard = $("#GolfHard").val();
     obj.Introduction = $("#Introduction").val();
     obj.FullIntro = editor.getData();
+
+    var Hand = new Array();
+    $('input[name="hand"]:checked').each(function(i) {
+        Hand[Hand.length] = this.value;
+    });
+    obj.Hand = Hand;
+
+    var Angle = new Array();
+    $('input[name="angle"]:checked').each(function(i) {
+        Angle[Angle.length] = this.value;
+    });
+    obj.Angle = Angle;
+
+    var GolfClub = new Array();
+    $('input[name="golfClub"]:checked').each(function(i) {
+        GolfClub[GolfClub.length] = this.value;
+    });
+    obj.GolfClub = GolfClub;
+
+    var GolfHard = new Array();
+    $('input[name="hardness"]:checked').each(function(i) {
+        GolfHard[GolfHard.length] = this.value;
+    });
+    obj.GolfHard = GolfHard;
+
+    
     if (obj.Name.length == 0)
         alert("請填寫產品名稱");
     else if (obj.Price.length == 0)
@@ -51,8 +76,8 @@ function CreateProduction() {
 function uploadProductPhoto(result) {
     if (result == "0")
         return;
-    var Filevalue = $("#uploadFile").val();
-    if (Filevalue.length > 0) {
+    //var Filevalue = $("#uploadFile").val();
+    //if (Filevalue.length > 0) {
         var obj = new Object();
         var picSave = false;
         var options = {
@@ -69,10 +94,10 @@ function uploadProductPhoto(result) {
             }
         };
         $('#GmyForm').ajaxSubmit(options); // 將options傳給ajaxForm
-    }
-    else {
-        saveProductionSuccess(result);
-    }
+    //}
+    //else {
+    //    saveProductionSuccess(result);
+    //}
 }
 function saveProductionSuccess(result) {
     if (result > 0) {

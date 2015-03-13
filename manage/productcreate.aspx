@@ -100,48 +100,86 @@
                                     <form id="GmyForm" name="GmyForm" action="" method="post" enctype="multipart/form-data">
                                         <table class="table table-striped table-bordered" id="Table1" border="0">
                                             <tr>
-		                                        <th width="150">產品編號</th>
-		                                        <td><span id="ProductID" runat="server"></span></td>
+		                                        <td width="150">產品編號</td>
+		                                        <td colspan="5"><span id="ProductID" runat="server"></span></td>
     			                                
-		                                        <th rowspan="10" width="200">
-		                                            <p align="center">產品照片<br />
-    			                                        
-		                                                <input id="uploadFile" name="storePhoto" type="file" name="File1" size="1" />
-    			                                        
-		                                                <br />
-		                                                <div id="storePhotoHideDiv" style="display:none;">
-		                                                    <img id="storePhotoUrl" href="../images/noAvatar2.jpg" ></img>
-		                                                </div>
-			                                            <div id="PhotoShow" href="../images/noAvatar2.jpg" runat="server"></div>
-        			                                    
-		                                            </p>
-		                                           
-		                                        </th>
+		                                        
 		                                    </tr>
-		                                    <tr>
-		                                        <th width="150">產品名稱</th>
+                                            <tr>
+                                                <td width="150" rowspan="2">產品照片</td>
+                                                <td>
+		                                            <input id="uploadFile1" name="storePhoto" type="file" name="File1" class="file_1" />
+    			                                        
+	                                                <br />
+	                                                <div id="storePhotoHideDiv1" style="display:none;">
+	                                                    <img id="storePhotoUrl1" href="../images/noAvatar2.jpg" ></img>
+	                                                </div>
+		                                            <div id="PhotoShow1" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                        </td>
 		                                        <td>
+		                                            <input id="uploadFile2" name="storePhoto" type="file" name="File1" class="file_2" />
+    			                                        
+	                                                <br />
+	                                                <div id="storePhotoHideDiv2" style="display:none;">
+	                                                    <img id="storePhotoUrl2" href="../images/noAvatar2.jpg" ></img>
+	                                                </div>
+		                                            <div id="PhotoShow2" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                        </td>
+		                                        <td>
+		                                            <input id="uploadFile3" name="storePhoto" type="file" name="File1" class="file_3" />
+    			                                        
+	                                                <br />
+	                                                <div id="storePhotoHideDiv3" style="display:none;">
+	                                                    <img id="storePhotoUrl3" href="../images/noAvatar2.jpg" ></img>
+	                                                </div>
+		                                            <div id="PhotoShow3" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                        </td>
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td>
+		                                            <input id="uploadFile4" name="storePhoto" type="file" name="File1" class="file_4" />
+    			                                        
+	                                                <br />
+	                                                <div id="storePhotoHideDiv4" style="display:none;">
+	                                                    <img id="storePhotoUrl4" href="../images/noAvatar2.jpg" ></img>
+	                                                </div>
+		                                            <div id="PhotoShow4" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                        </td>
+		                                        <td>
+		                                            <input id="uploadFile5" name="storePhoto" type="file" name="File1" class="file_5" />
+    			                                        
+	                                                <br />
+	                                                <div id="storePhotoHideDiv5" style="display:none;">
+	                                                    <img id="storePhotoUrl5" href="../images/noAvatar2.jpg" ></img>
+	                                                </div>
+		                                            <div id="PhotoShow5" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                        </td>
+                                            </tr>
+		                                    <tr>
+		                                        <td width="150">產品名稱</td>
+		                                        <td colspan="5">
 		                                        <input id="Name" type="text" runat="server" /><span class="startMark">*</span></td>
     			                                
 		                                    </tr>
 		                                    <tr>
-		                                        <th>產品價格</th>
-		                                        <td>
+		                                        <td>產品價格</td>
+		                                        <td colspan="5">
 		                                            <input id="Price" type="text" runat="server" /><span class="startMark">*</span>
 		                                        </td>
     			                                
 		                                    </tr>
 		                                    <tr>
-		                                        <th>產品分類</th>
-		                                        <td>
+		                                        <td>產品分類</td>
+		                                        <td colspan="5">
 		                                            <select id="Production_Category" runat="server">
 		                                               
 		                                            </select>
 		                                        </td>  
 		                                    </tr>
 		                                    <tr>
-		                                        <th>產品等級</th>
-		                                        <td>
+		                                        <td>產品等級</td>
+		                                        <td colspan="5">
 		                                            <select id="ProductionLevel" runat="server">
 		                                                <option value="0">A+</option>
 		                                                <option value="1">A</option>
@@ -155,18 +193,16 @@
 		                                        </td>  
 		                                    </tr>
 		                                    <tr>
-		                                        <th>左右手</th>
-		                                        <td>
-		                                            <select id="Hand" runat="server">
-		                                                <option value="0">請選擇</option>
-		                                                <option value="1">左手</option>
-		                                                <option value="2">右手</option>
-		                                            </select>
+		                                        <td>左右手</td>
+		                                        <td colspan="5" runat="server" id="handBlock">
+		                                            <label><input type="checkbox" name="hand" value="1"/>左手</label>
+		                                            <label><input type="checkbox" name="hand" value="2" />右手</label>
+
 		                                        </td>  
 		                                    </tr>
 		                                    <tr>
-		                                        <th>角度</th>
-		                                        <td>
+		                                        <td>角度</td>
+		                                        <td colspan="5" runat="server" id="AngleBlock">
 		                                            <select id="Angle" runat="server">
 		                                                <option value="0">請選擇</option>
 		                                               
@@ -174,8 +210,8 @@
 		                                        </td>  
 		                                    </tr>
 		                                    <tr>
-		                                        <th>桿身</th>
-		                                        <td>
+		                                        <td>桿身</td>
+		                                        <td colspan="5" runat="server" id="golfClubBlock">
 		                                            <select id="GolfClub" runat="server">
 		                                                <option value="0">請選擇</option>
 		                                               
@@ -183,22 +219,23 @@
 		                                        </td>  
 		                                    </tr>
 		                                    <tr>
-		                                        <th>硬度</th>
-		                                        <td>
+		                                        <td>硬度</td>
+		                                        <td colspan="5" runat="server" id="hardnessBlock">
 		                                            <select id="GolfHard" runat="server">
 		                                                <option value="0">請選擇</option>
 		                                               
 		                                            </select>
 		                                        </td>  
 		                                    </tr>
+		                                    
 		                                    <tr>
-		                                        <th>產品簡介</th>
-		                                        <td>
+		                                        <td>產品簡介</td>
+		                                        <td colspan="5">
 		                                            <textarea id="Introduction" rows="5" style="width:95%" runat="server" ></textarea>
 		                                        </td>
 		                                    </tr>
 		                                    <tr>
-		                                        <th>完整商品圖文介紹</th>
+		                                        <td>完整商品圖文介紹</td>
 		                                        <td colspan="5">
 		                                            <textarea id="FullIntro" rows="5" style="width:100%" runat="server" ></textarea>
 		                                        </td>
