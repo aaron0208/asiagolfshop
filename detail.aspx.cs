@@ -72,7 +72,7 @@ public partial class detail : System.Web.UI.Page
             }
             inner += "</select>";
             pGolfHard.InnerHtml = inner;
-
+            pPrice.InnerHtml = myProduction.Price + "元";
 
         }
         catch(Exception ee)

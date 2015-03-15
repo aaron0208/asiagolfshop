@@ -100,16 +100,21 @@
 	vertical-align: middle;
     border: 1px solid #999;
     padding: 3px;
-    width: 15%;
+    width: 20%;
     cursor: pointer;
     transition: width .35s ease-out;
     float:left;
 }
 
-.productImgs UL LI:hover 
+.productImgs UL:hover LI 
+{
+    width: 18.75%;
+}
+
+.productImgs UL:hover LI:hover 
 {
     border: 1px solid #444;
-    width: 18%;
+    width: 25%;
 }
 
 .productImgs UL LI IMG
@@ -177,6 +182,15 @@
                     <li runat="server" id="pGolfClub">Consectetur</li>
                     <li runat="server" id="pGolfHard">Adipiscing Elit</li>
                 </ul>
+                <h3>付款方式</h3>
+                <p><img src="./images/ico_credi_201008.png"></p>
+                <h3>交貨方式</h3>
+                <p>
+    貨運 / 宅配 (購物滿800元免運費) 、7-11取貨付款 (購物滿500元免運費)
+</p>
+                <h3>價格</h3>
+                <h4 id="pPrice" runat="server"></h4>
+                <input type="submit" value="加入購物車" id="btn-add-cart" class="button-secondary button-add-to-cart">
             </div>
 
         </div>
