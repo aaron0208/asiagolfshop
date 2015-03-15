@@ -52,6 +52,8 @@ public class Files : IHttpHandler, System.Web.SessionState.IRequiresSessionState
                     HttpPostedFile file = files[i];
                     file.SaveAs(savePath);
                     success = updateProductionPhoto(newFileName, productID);
+                    if (int.Parse(success) > 0)
+                        success = productID;
                 }
                 return success;
             }

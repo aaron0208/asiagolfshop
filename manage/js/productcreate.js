@@ -61,9 +61,18 @@ function CreateProduction() {
         GolfHard[GolfHard.length] = this.value;
     });
     obj.GolfHard = GolfHard;
-
-    
-    if (obj.Name.length == 0)
+//var Filevalue = $("#uploadFile").val();
+    var hasPic=false;
+    for(var i=1;i<=5;i++)
+    {
+        if($("#uploadFile" + i).val().length>0)
+        {
+            hasPic=true;
+        }
+    }
+    if (!hasPic)
+        alert("請上傳至少一張照片");
+    else if (obj.Name.length == 0)
         alert("請填寫產品名稱");
     else if (obj.Price.length == 0)
         alert("請填寫價格");
