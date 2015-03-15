@@ -1,4 +1,5 @@
 ﻿var editor;
+var uploadQueryString = "";
 $(function() {
     Supervisor.set_defaultSucceededCallback(SucceededCallback);
     Supervisor.set_defaultFailedCallback(FailedCallback);
@@ -65,9 +66,12 @@ function CreateProduction() {
     var hasPic=false;
     for(var i=1;i<=5;i++)
     {
-        if($("#uploadFile" + i).val().length>0)
-        {
-            hasPic=true;
+        if ($("#uploadFile" + i).val().length > 0) {
+            hasPic = true;
+            uploadQueryString += "&file" + i + "=1";
+        }
+        else {
+            uploadQueryString += "&file" + i + "=0";
         }
     }
     if (!hasPic)
@@ -91,7 +95,7 @@ function uploadProductPhoto(result) {
         var picSave = false;
         var options = {
             type: "POST",
-            url: '../Files.ashx?type=productionPic&productid=' + result,
+            url: '../Files.ashx?type=productionPic&productid=' + result + uploadQueryString,
             async: false,
             success: function(value) {
                 if (value.length > 0) {

@@ -129,15 +129,25 @@ public partial class manage_product : System.Web.UI.Page
             foreach(string URL in myProduction.ProductionPhoto)
             {
                 if (counter == 1)
+                {
                     PhotoShow1.InnerHtml = "<img style='width:180px;' alt='' src='../photos/production/" + URL + "'/>";
+                }
                 else if (counter == 2)
+                {
                     PhotoShow2.InnerHtml = "<img style='width:180px;' alt='' src='../photos/production/" + URL + "'/>";
+                }
                 else if (counter == 3)
+                {
                     PhotoShow3.InnerHtml = "<img style='width:180px;' alt='' src='../photos/production/" + URL + "'/>";
+                }
                 else if (counter == 4)
+                {
                     PhotoShow4.InnerHtml = "<img style='width:180px;' alt='' src='../photos/production/" + URL + "'/>";
+                }
                 else if (counter == 5)
+                {
                     PhotoShow5.InnerHtml = "<img style='width:180px;' alt='' src='../photos/production/" + URL + "'/>";
+                }
                 counter++;
             }
 

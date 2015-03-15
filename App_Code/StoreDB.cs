@@ -97,6 +97,18 @@ public class StoreDB
 
         return success;
     }
+    
+    private string DeleteListinDB(Int64 ProductID)
+    {
+        //DELETE FROM store_Production_List where ProductID = @ProductID; 
+        string returnvalue = "";
+        DataBase db = new DataBase();
+        string sqlString = "DELETE FROM store_Production_List where ProductID = @ProductID";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@ProductID", DbType.Int64, ProductID);
+        returnvalue = db.ExecuteNonQuery(command).ToString();
+        return returnvalue;
+    }
     private string SetListinDB(string ProductID, string GroupName, string ItemID)
     {
         string returnvalue = "";
@@ -115,7 +127,7 @@ public class StoreDB
         DataBase db = new DataBase();
        
         string sqlString = "update store_Production set Name=@Name,Price=@Price,Category=@Category,ProductLevel=@ProductLevel," +
-        "Introduction=@Introduction,HTML=@HTML,Hand=@Hand,Angle=@Angle,GolfClub=@GolfClub,HardLevel=@HardLevel" +
+        "Introduction=@Introduction,HTML=@HTML" +
         " where ID=@ID ";
         DbCommand command = db.GetSqlStringCommond(sqlString);
         db.AddInParameter(command, "@ID", DbType.Int32, obj.ID);
@@ -125,13 +137,26 @@ public class StoreDB
         db.AddInParameter(command, "@ProductLevel", DbType.Int16, obj.ProductionLevel);
         db.AddInParameter(command, "@Introduction", DbType.String, obj.Introduction);
         db.AddInParameter(command, "@HTML", DbType.String, obj.FullIntro);
-        db.AddInParameter(command, "@Hand", DbType.Int16, obj.Hand);
-
-        db.AddInParameter(command, "@Angle", DbType.Int32, obj.Angle);
-        db.AddInParameter(command, "@GolfClub", DbType.Int16, obj.GolfClub);
-        db.AddInParameter(command, "@HardLevel", DbType.Int16, obj.GolfHard);
+       
         success = db.ExecuteNonQuery(command).ToString();
         //success = db.ExecuteScalar(command).ToString();
+        DeleteListinDB(obj.ID);
+        for (int i = 0; i < obj.Angle.Length; i++)
+        {
+            SetListinDB(obj.ID.ToString(), "angle", obj.Angle[i]);
+        }
+        for (int i = 0; i < obj.Hand.Length; i++)
+        {
+            SetListinDB(obj.ID.ToString(), "hand", obj.Hand[i]);
+        }
+        for (int i = 0; i < obj.GolfClub.Length; i++)
+        {
+            SetListinDB(obj.ID.ToString(), "golfClub", obj.GolfClub[i]);
+        }
+        for (int i = 0; i < obj.GolfHard.Length; i++)
+        {
+            SetListinDB(obj.ID.ToString(), "hardness", obj.GolfHard[i]);
+        }
         return success;
     }
     
@@ -226,11 +251,16 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-            
+            myProduction.ProductionPhoto = new List<string>();
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto0"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto1"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto2"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto3"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto4"].ToString());
+           
 
         }
         dr.Close();
-        myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
         List<sProduct_List> totalListItem = getHandInfo(myProduction.ID);
         myProduction.Hand = getMultiSettingItemID(totalListItem, "hand");
         myProduction.HandName = getMultiSettingItemName(totalListItem, "hand");
@@ -250,7 +280,7 @@ public class StoreDB
         List<string> tempString = new List<string>();
         foreach(sProduct_List atom in totalListItem)
         {
-            if (atom.GroupName.Trim() == name)
+            if (atom.GroupName.Trim().ToLower() == name)
                 tempString.Add(atom.ItemID);
         }
         string[] returnvalue = new string[tempString.Count];
@@ -268,7 +298,7 @@ public class StoreDB
         List<sProduct_List> returnvalue = new List<sProduct_List>();
         foreach (sProduct_List atom in totalListItem)
         {
-            if (atom.GroupName.Trim() == name)
+            if (atom.GroupName.Trim().ToLower() == name)
             {
                 returnvalue.Add(atom);
             }
@@ -339,22 +369,16 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-
-            temp.Add(myProduction);
-        }
-        dr.Close();
-        foreach (sProduction atom in temp)
-        {
-            myProduction.ID = atom.ID;
-            myProduction.Name = atom.Name;
-            myProduction.Price = atom.Price;
-            myProduction.ProductionCategory = atom.ProductionCategory;
-            myProduction.ProductionLevel = atom.ProductionLevel;
-            myProduction.Introduction = atom.Introduction;
-            myProduction.FullIntro = atom.FullIntro;
-            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
+            myProduction.ProductionPhoto = new List<string>();
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto0"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto1"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto2"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto3"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto4"].ToString());
             returnValue.Add(myProduction);
         }
+        dr.Close();
+        
         return returnValue;
     }
     public sProduction searchProductionbyID(string id)
@@ -389,12 +413,16 @@ public class StoreDB
             myProduction.GolfClubName = getMultiSettingItemName(totalListItem, "golfclub");
             myProduction.GolfHard = getMultiSettingItemID(totalListItem, "hardness");
             myProduction.GolfHardName = getMultiSettingItemName(totalListItem, "hardness");
-           
+            myProduction.ProductionPhoto = new List<string>();
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto0"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto1"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto2"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto3"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto4"].ToString());
 
           
         }
         dr.Close();
-        myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
         return myProduction;
     }
     public List<sProduction> searchProduction(int counter)
@@ -421,21 +449,15 @@ public class StoreDB
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
             //myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
-            temp.Add(myProduction);
-        }
-        dr.Close();
-        foreach (sProduction atom in temp)
-        {
-            myProduction.ID = atom.ID;
-            myProduction.Name = atom.Name;
-            myProduction.Price = atom.Price;
-            myProduction.ProductionCategory = atom.ProductionCategory;
-            myProduction.ProductionLevel = atom.ProductionLevel;
-            myProduction.Introduction = atom.Introduction;
-            myProduction.FullIntro = atom.FullIntro;
-            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
+            myProduction.ProductionPhoto = new List<string>();
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto0"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto1"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto2"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto3"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto4"].ToString());
             returnValue.Add(myProduction);
         }
+        dr.Close();
         return returnValue;
     }
     public List<sProduction> searchProduction()
@@ -462,35 +484,30 @@ public class StoreDB
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
             //myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
-            temp.Add(myProduction);
-        }
-        dr.Close();
-        foreach (sProduction atom in temp)
-        {
-            myProduction.ID = atom.ID;
-            myProduction.Name = atom.Name;
-            myProduction.Price = atom.Price;
-            myProduction.ProductionCategory = atom.ProductionCategory;
-            myProduction.ProductionLevel = atom.ProductionLevel;
-            myProduction.Introduction = atom.Introduction;
-            myProduction.FullIntro = atom.FullIntro;
-            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
+            myProduction.ProductionPhoto = new List<string>();
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto0"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto1"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto2"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto3"].ToString());
+            myProduction.ProductionPhoto.Add(dr["ProductionPhoto4"].ToString());
             returnValue.Add(myProduction);
         }
+        dr.Close();
         return returnValue;
     }
-    public string updateProductionPhoto(string PhotoName, string ProductID)
+    public string updateProductionPhoto(string PhotoName, string ProductID,int idx)
     {
-        //string success = "";
-        //DataBase db = new DataBase();
-        //string sqlString = "update store_Production set ProductionPhoto=@ProductionPhoto where ID=@ID";
-        //DbCommand command = db.GetSqlStringCommond(sqlString);
-        //db.AddInParameter(command, "@ProductionPhoto", DbType.String, PhotoName);
-        //db.AddInParameter(command, "@ID", DbType.Int32, ID);
-        //success = db.ExecuteNonQuery(command).ToString();
-        //if (int.Parse(success) > 0)
-        //    success = MessageSuccess;
-        //return success;
+        string success = "";
+        DataBase db = new DataBase();
+        string sqlString = "update store_Production set ProductionPhoto" + idx + "=@ProductionPhoto where ID=@ID";
+        DbCommand command = db.GetSqlStringCommond(sqlString);
+        db.AddInParameter(command, "@ProductionPhoto", DbType.String, PhotoName);
+        db.AddInParameter(command, "@ID", DbType.Int32, ProductID);
+        success = db.ExecuteNonQuery(command).ToString();
+        if (int.Parse(success) > 0)
+            success = MessageSuccess;
+        return success;
+        /*
         string returnvalue = "";
         DataBase db = new DataBase();
         string sqlString = "insert into store_Production_Photo (ProductID,ProductionPhoto) values(@ProductID,@ProductionPhoto)";
@@ -499,6 +516,7 @@ public class StoreDB
         db.AddInParameter(command, "@ProductionPhoto", DbType.String, PhotoName);
         returnvalue = db.ExecuteNonQuery(command).ToString();
         return returnvalue;
+         * */
     }
 
     public string CreateProductionCategory(string category)
