@@ -353,6 +353,7 @@ public class StoreDB
             myProduction.Introduction = atom.Introduction;
             myProduction.FullIntro = atom.FullIntro;
             myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
+            returnValue.Add(myProduction);
         }
         return returnValue;
     }
