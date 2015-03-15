@@ -226,10 +226,11 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-            myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+            
 
         }
         dr.Close();
+        myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
         List<sProduct_List> totalListItem = getHandInfo(myProduction.ID);
         myProduction.Hand = getMultiSettingItemID(totalListItem, "hand");
         myProduction.HandName = getMultiSettingItemName(totalListItem, "hand");
@@ -287,6 +288,7 @@ public class StoreDB
         {
             returnvalue.Add(dr["ProductionPhoto"].ToString());
         }
+        dr.Close();
         return returnvalue;
     }
     private List<sProduct_List> getHandInfo(Int64 ProductID)
@@ -311,6 +313,7 @@ public class StoreDB
     public List<sProduction> searchProductionbyCateogry(string category)
     {
         List<sProduction> returnValue = new List<sProduction>();
+        List<sProduction> temp = new List<sProduction>();
         sProduction myProduction = new sProduction();
         DataBase db = new DataBase();
         string sqlString;
@@ -336,8 +339,20 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-            myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
-            returnValue.Add(myProduction);
+
+            temp.Add(myProduction);
+        }
+        dr.Close();
+        foreach (sProduction atom in temp)
+        {
+            myProduction.ID = atom.ID;
+            myProduction.Name = atom.Name;
+            myProduction.Price = atom.Price;
+            myProduction.ProductionCategory = atom.ProductionCategory;
+            myProduction.ProductionLevel = atom.ProductionLevel;
+            myProduction.Introduction = atom.Introduction;
+            myProduction.FullIntro = atom.FullIntro;
+            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
         }
         return returnValue;
     }
@@ -373,15 +388,18 @@ public class StoreDB
             myProduction.GolfClubName = getMultiSettingItemName(totalListItem, "golfclub");
             myProduction.GolfHard = getMultiSettingItemID(totalListItem, "hardness");
             myProduction.GolfHardName = getMultiSettingItemName(totalListItem, "hardness");
-            myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+           
 
           
         }
+        dr.Close();
+        myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
         return myProduction;
     }
     public List<sProduction> searchProduction(int counter)
     {
         List<sProduction> returnValue = new List<sProduction>();
+        List<sProduction> temp = new List<sProduction>();
         sProduction myProduction = new sProduction();
         DataBase db = new DataBase();
         string sqlString = "select top " + counter.ToString() + " * from store_Production order by ID desc";
@@ -401,7 +419,20 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-            myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+            //myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+            temp.Add(myProduction);
+        }
+        dr.Close();
+        foreach (sProduction atom in temp)
+        {
+            myProduction.ID = atom.ID;
+            myProduction.Name = atom.Name;
+            myProduction.Price = atom.Price;
+            myProduction.ProductionCategory = atom.ProductionCategory;
+            myProduction.ProductionLevel = atom.ProductionLevel;
+            myProduction.Introduction = atom.Introduction;
+            myProduction.FullIntro = atom.FullIntro;
+            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
             returnValue.Add(myProduction);
         }
         return returnValue;
@@ -409,6 +440,7 @@ public class StoreDB
     public List<sProduction> searchProduction()
     {
         List<sProduction> returnValue = new List<sProduction>();
+        List<sProduction> temp = new List<sProduction>();
         sProduction myProduction = new sProduction();
         DataBase db = new DataBase();
         string sqlString = "select  * from store_Production order by ID desc";
@@ -428,7 +460,20 @@ public class StoreDB
             //myProduction.GolfClub = dr["GolfClub"].ToString();
             //myProduction.GolfHard = dr["HardLevel"].ToString();
             //myProduction.ProductionPhoto = dr["ProductionPhoto"].ToString();
-            myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+            //myProduction.ProductionPhoto = getProductionPhoto(myProduction.ID);
+            temp.Add(myProduction);
+        }
+        dr.Close();
+        foreach (sProduction atom in temp)
+        {
+            myProduction.ID = atom.ID;
+            myProduction.Name = atom.Name;
+            myProduction.Price = atom.Price;
+            myProduction.ProductionCategory = atom.ProductionCategory;
+            myProduction.ProductionLevel = atom.ProductionLevel;
+            myProduction.Introduction = atom.Introduction;
+            myProduction.FullIntro = atom.FullIntro;
+            myProduction.ProductionPhoto = getProductionPhoto(atom.ID);
             returnValue.Add(myProduction);
         }
         return returnValue;
