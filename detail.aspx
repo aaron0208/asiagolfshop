@@ -196,7 +196,9 @@
         </div>
         <!-- /.row -->
 
-        
+        <div class="row" >
+        <h3>詳細資訊</h3>
+        </div>
         <div class="row" id="fullintroduction" runat="server">
         </div>
         <hr>
