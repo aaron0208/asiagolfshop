@@ -114,7 +114,7 @@
 	                                                <div id="storePhotoHideDiv1" style="display:none;">
 	                                                    <img id="storePhotoUrl1" href="../images/noAvatar2.jpg" ></img>
 	                                                </div>
-		                                            <div id="PhotoShow1" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                            <div id="PhotoShow1"  runat="server"></div>
 		                                        </td>
 		                                        <td>
 		                                            <input id="uploadFile2" name="storePhoto" type="file"  class="file_2" />
@@ -123,7 +123,7 @@
 	                                                <div id="storePhotoHideDiv2" style="display:none;">
 	                                                    <img id="storePhotoUrl2" href="../images/noAvatar2.jpg" ></img>
 	                                                </div>
-		                                            <div id="PhotoShow2" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                            <div id="PhotoShow2"  runat="server"></div>
 		                                        </td>
 		                                        <td>
 		                                            <input id="uploadFile3" name="storePhoto" type="file"  class="file_3" />
@@ -132,7 +132,7 @@
 	                                                <div id="storePhotoHideDiv3" style="display:none;">
 	                                                    <img id="storePhotoUrl3" href="../images/noAvatar2.jpg" ></img>
 	                                                </div>
-		                                            <div id="PhotoShow3" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                            <div id="PhotoShow3" runat="server"></div>
 		                                        </td>
                                             </tr>
                                             <tr>
@@ -144,7 +144,7 @@
 	                                                <div id="storePhotoHideDiv4" style="display:none;">
 	                                                    <img id="storePhotoUrl4" href="../images/noAvatar2.jpg" ></img>
 	                                                </div>
-		                                            <div id="PhotoShow4" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                            <div id="PhotoShow4"  runat="server"></div>
 		                                        </td>
 		                                        <td>
 		                                            <input id="uploadFile5" name="storePhoto" type="file"  class="file_5" />
@@ -153,7 +153,7 @@
 	                                                <div id="storePhotoHideDiv5" style="display:none;">
 	                                                    <img id="storePhotoUrl5" href="../images/noAvatar2.jpg" ></img>
 	                                                </div>
-		                                            <div id="PhotoShow5" href="../images/noAvatar2.jpg" runat="server"></div>
+		                                            <div id="PhotoShow5"  runat="server"></div>
 		                                        </td>
                                             </tr>
 		                                    <tr>
